@@ -128,6 +128,7 @@ class WebSmsClient
     public function setAccessToken($accessToken)
     {
         $this->accessToken = $accessToken;
+        $this->createGuzzleClient();
     }
 
     /**
@@ -142,6 +143,7 @@ class WebSmsClient
     {
         $this->username = $username;
         $this->password = $password;
+        $this->createGuzzleClient();
     }
 
     private function createGuzzleClient()
