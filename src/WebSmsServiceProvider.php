@@ -74,14 +74,14 @@ class WebSmsServiceProvider extends ServiceProvider
     {
         $client = new WebSmsClient();
 
-        $client->setEndpoint($config->get('endpoint'));
+        $client->setEndpoint($config->get('websms.endpoint'));
 
-        if ($config->get('auth.accessToken')) {
-            $client->setAccessToken($config->get('auth.accessToken'));
-        } elseif ($config->get('auth.username') and $config->get('auth.password')) {
+        if ($config->get('websms.auth.accessToken')) {
+            $client->setAccessToken($config->get('websms.auth.accessToken'));
+        } elseif ($config->get('websms.auth.username') and $config->get('websms.auth.password')) {
             $client->setUsernamePassword(
-                $config->get('auth.username'),
-                $config->get('auth.password')
+                $config->get('websms.auth.username'),
+                $config->get('websms.auth.password')
             );
         } else {
             throw new InvalidConfigException('Either the access token or the username/password are required');
