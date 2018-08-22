@@ -151,7 +151,9 @@ class WebSmsClient
         $this->guzzle = new Client([
             'base_uri' => $this->endpoint,
             'headers' => [
-                'Authorization' => $this->getAuthorizationHeader(),
+                'Authorization' =>  $this->getAuthorizationHeader(),
+                'Accept' =>         'application/json',
+                'Content-Type' =>   'application/json',
             ],
         ]);
     }
