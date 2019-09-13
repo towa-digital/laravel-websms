@@ -20,5 +20,8 @@ return [
          */
         'accessToken' => env('WEBSMS_ACCESS_TOKEN', null),
     ],
+    'guzzle' => [
+	    'options' => [],
+    ],
 
 ];
