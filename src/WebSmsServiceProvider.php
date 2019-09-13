@@ -75,6 +75,10 @@ class WebSmsServiceProvider extends ServiceProvider
         $client = new WebSmsClient();
 
         $client->setEndpoint($config->get('websms.endpoint'));
+        
+        if ($config->get('websms.guzzle.options')) {
+        	$client->setGuzzleOptions($config->get('websms.guzzle.options'));
+        }
 
         if ($config->get('websms.auth.accessToken')) {
             $client->setAccessToken($config->get('websms.auth.accessToken'));
