@@ -43,7 +43,7 @@ class WebSmsClient
     /**
      * @var Client
      */
-    protected $guzzle;
+    private $guzzle;
 
     /**
      * The endpoint to make the api calls to
@@ -165,7 +165,7 @@ class WebSmsClient
         $this->createGuzzleClient();
     }
 
-    protected function createGuzzleClient()
+    private function createGuzzleClient()
     {
         $this->guzzle = new Client($this->guzzleOptions + [
             'base_uri' => $this->endpoint,
