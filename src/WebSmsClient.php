@@ -46,42 +46,42 @@ class WebSmsClient
     private $guzzle;
 
     /**
-     * The endpoint to make the api calls to
+     * The endpoint to make the api calls to.
      *
      * @var string
      */
     protected $endpoint;
 
     /**
-     * The username to authenticate against the api
+     * The username to authenticate against the api.
      *
      * @var string|null
      */
     protected $username = null;
 
     /**
-     * The password for the given user
+     * The password for the given user.
      *
      * @var string|null
      */
     protected $password = null;
 
     /**
-     * The access token used to authenticate against the api
+     * The access token used to authenticate against the api.
      *
      * @var string|null
      */
     protected $accessToken = null;
     
     /**
-     * The access token used to authenticate against the api
+     * Optional configuration options for the guzzle client.
      *
      * @var array
      */
     protected $guzzleOptions = [];
 
     /**
-     * Build the content for the authorization header
+     * Build the content for the authorization header.
      *
      * @see https://developer.websms.com/web-api/#authentication
      *
@@ -103,7 +103,7 @@ class WebSmsClient
     }
 
     /**
-     * Set the api endpoint
+     * Set the api endpoint.
      *
      * @param $endpoint string
      *
@@ -116,7 +116,7 @@ class WebSmsClient
     }
 
     /**
-     * Return the api endpoint
+     * Return the api endpoint.
      *
      * @return string
      */
@@ -138,7 +138,7 @@ class WebSmsClient
     }
 
     /**
-     * Set the access token for authentication
+     * Set the access token for authentication.
      *
      * @param $accessToken string
      *
@@ -151,7 +151,7 @@ class WebSmsClient
     }
 
     /**
-     * Set the username and password for authentication
+     * Set the username and password for authentication.
      *
      * @param $username string
      * @param $password string
@@ -165,6 +165,11 @@ class WebSmsClient
         $this->createGuzzleClient();
     }
 
+    /**
+     * Create the guzzle client.
+     *
+     * @return void
+     */
     private function createGuzzleClient()
     {
         $this->guzzle = new Client($this->guzzleOptions + [
@@ -178,7 +183,7 @@ class WebSmsClient
     }
 
     /**
-     * Send a given message
+     * Send a given message.
      *
      * @param Message $message
      *
@@ -276,7 +281,7 @@ class WebSmsClient
     }
 
     /**
-     * Create a new sms message
+     * Create a new sms message.
      *
      * @return SmsMessage
      */
@@ -286,7 +291,7 @@ class WebSmsClient
     }
 
     /**
-     * Create a new whatsapp message
+     * Create a new whatsapp message.
      *
      * @throws NotSupportedException
      */
