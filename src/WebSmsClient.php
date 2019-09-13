@@ -72,6 +72,13 @@ class WebSmsClient
      * @var string|null
      */
     protected $accessToken = null;
+    
+    /**
+     * The access token used to authenticate against the api
+     *
+     * @var array
+     */
+    protected $guzzleOptions = [];
 
     /**
      * Build the content for the authorization header
@@ -119,6 +126,18 @@ class WebSmsClient
     }
 
     /**
+     * Set additional guzzle options
+     *
+     * @param $options array
+     *
+     * @return void
+     */
+    public function setGuzzleOptions($options)
+    {
+        $this->guzzleOptions = $options;
+    }
+
+    /**
      * Set the access token for authentication
      *
      * @param $accessToken string
@@ -148,7 +167,7 @@ class WebSmsClient
 
     private function createGuzzleClient()
     {
-        $this->guzzle = new Client([
+        $this->guzzle = new Client($this->guzzleOptions + [
             'base_uri' => $this->endpoint,
             'headers' => [
                 'Authorization' =>  $this->getAuthorizationHeader(),
