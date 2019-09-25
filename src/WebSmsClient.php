@@ -181,6 +181,25 @@ class WebSmsClient
             ],
         ]);
     }
+    
+    /**
+     * Backwards compatible array_get functionality using either the old or the new helper
+     *
+     * @return mixed
+     */
+    private function array_get($array, $key, $default = null) {
+        if(function_exists('array_get'))
+        {
+            return array_get($array, $key, $default)
+        }
+
+        if(method_exists('\Illuminate\Support\Arr', 'get'))
+        {
+            return \Illuminate\Support\Arr::get($array, $key, $default);
+        }
+
+        throw new NotSupportedException('Looks like array_get() and Arr::get() are both not available. Are you sure you are running Laravel?');
+    }
 
     /**
      * Send a given message.
@@ -218,12 +237,12 @@ class WebSmsClient
 
             $responseData = json_decode($responseBody, true);
 
-            switch (array_get($responseData, 'statusCode', 0)) {
+            switch ($this->array_get($responseData, 'statusCode', 0)) {
 
                 case self::STATUS_OK:
                 case self::STATUS_OK_QUEUED:
 
-                    return array_get($responseData, 'clientMessageId', null);
+                    return $this->array_get($responseData, 'clientMessageId', null);
 
                 case self::STATUS_INVALID_ACCOUNT:
                 case self::STATUS_ACCESS_DENIED:
@@ -231,8 +250,8 @@ class WebSmsClient
                 case self::STATUS_UNAUTHORIZED_IP:
 
                     throw new NotAuthorizedException(
-                        array_get($responseData, 'statusMessage', 'no message'),
-                        array_get($responseData, 'statusCode', 0)
+                        $this->array_get($responseData, 'statusMessage', 'no message'),
+                        $this->array_get($responseData, 'statusCode', 0)
                     );
 
                 case self::STATUS_INVALID_RECIPIENT:
@@ -254,8 +273,8 @@ class WebSmsClient
 
                     throw new InvalidRequestException(
                         'There seems to be a problem with the request: '.
-                        array_get($responseData, 'statusMessage', 'no message'),
-                        array_get($responseData, 'statusCode', 0)
+                        $this->array_get($responseData, 'statusMessage', 'no message'),
+                        $this->array_get($responseData, 'statusCode', 0)
                     );
 
                 case self::STATUS_INTERNAL_ERROR:
@@ -263,7 +282,7 @@ class WebSmsClient
 
                     throw new ErrorException(
                         'The websms service seems to be unavailable at the moment.',
-                        array_get($responseData, 'statusCode', 0)
+                        $this->array_get($responseData, 'statusCode', 0)
                     );
 
                 default:
