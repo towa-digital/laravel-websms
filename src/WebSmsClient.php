@@ -256,7 +256,7 @@ class WebSmsClient
                     throw new InvalidRequestException(
                         'There seems to be a problem with the request: '.
                         $responseData['statusMessage'] ?? '',
-                        $responseData['statusCode'] ?? 0,
+                        $responseData['statusCode'] ?? 0
                     );
 
                 case self::STATUS_INTERNAL_ERROR:
