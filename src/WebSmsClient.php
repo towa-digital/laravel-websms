@@ -181,6 +181,7 @@ class WebSmsClient
             ],
         ]);
     }
+    
 
     /**
      * Send a given message.
@@ -218,12 +219,12 @@ class WebSmsClient
 
             $responseData = json_decode($responseBody, true);
 
-            switch (array_get($responseData, 'statusCode', 0)) {
+            switch ($responseData['statusCode'] ?? 0) {
 
                 case self::STATUS_OK:
                 case self::STATUS_OK_QUEUED:
 
-                    return array_get($responseData, 'clientMessageId', null);
+                    return $responseData['clientMessageId'] ?? null;
 
                 case self::STATUS_INVALID_ACCOUNT:
                 case self::STATUS_ACCESS_DENIED:
@@ -231,8 +232,8 @@ class WebSmsClient
                 case self::STATUS_UNAUTHORIZED_IP:
 
                     throw new NotAuthorizedException(
-                        array_get($responseData, 'statusMessage', 'no message'),
-                        array_get($responseData, 'statusCode', 0)
+                        $responseData['statusMessage'] ?? 'no message',
+                        $responseData['statusCode'] ?? 0
                     );
 
                 case self::STATUS_INVALID_RECIPIENT:
@@ -254,8 +255,8 @@ class WebSmsClient
 
                     throw new InvalidRequestException(
                         'There seems to be a problem with the request: '.
-                        array_get($responseData, 'statusMessage', 'no message'),
-                        array_get($responseData, 'statusCode', 0)
+                        $responseData['statusMessage'] ?? '',
+                        $responseData['statusCode'] ?? 0
                     );
 
                 case self::STATUS_INTERNAL_ERROR:
@@ -263,7 +264,7 @@ class WebSmsClient
 
                     throw new ErrorException(
                         'The websms service seems to be unavailable at the moment.',
-                        array_get($responseData, 'statusCode', 0)
+                        $responseData['statusCode'] ?? 0
                     );
 
                 default:
