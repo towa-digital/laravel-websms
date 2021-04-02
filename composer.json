@@ -1,5 +1,5 @@
 {
-    "name": "pro-sales/laravel-websms",
+    "name": "towa-digital/laravel-websms",
     "description": "A simple package to send sms messages using the websms.com apiii.",
     "type": "library",
     "license": "MIT",
@@ -7,14 +7,18 @@
         {
             "name": "Aaron Schmied",
             "email": "aaron@pro-sales.ch"
+        },
+        {
+            "name": "Martin Welte",
+            "email": "martin.welte@towa.at"
         }
     ],
     "require": {
         "php": ">=5.6",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "illuminate/support": "^5.2|^6.0",
-        "guzzlehttp/guzzle": "~6.0"
+        "illuminate/support": "^5.2|^6.0|^7.0|^8.0",
+        "guzzlehttp/guzzle": "^7"
     },
     "autoload": {
         "psr-4": {
